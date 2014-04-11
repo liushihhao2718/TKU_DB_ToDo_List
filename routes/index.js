@@ -6,41 +6,30 @@ exports.index = function ( req, res, next ){
     req.cookies.user_id : undefined;
 
 var queryStr = 'SELECT * FROM `To_Do_List` WHERE `user_id` = '+1;
-db.query(queryStr, function(err, rows, fiels) {
+db.query(queryStr, function(err, rows) {
   if(err) return next(err);
   res.render( 'index', {
-          title : 'Express Todo Example',
+          title : 'TKU To_Do_List',
           todos : rows
       });
 });
 };
 
 exports.create = function ( req, res, next ){
-  new Todo({
-      user_id    : req.cookies.user_id,
-      content    : req.body.content,
-      updated_at : Date.now()
-  }).save( function ( err, todo, count ){
-    if( err ) return next( err );
-
+  var content = req.body.content;
+  var user_id = req.cookies.user_id;
+  var queryStr = 'INSERT INTO `To_Do_List` (`content`, `user_id`) VALUES("'+content+'",'+1+')';
+  db.query(queryStr, function(err) {
+    if(err) return next(err);
     res.redirect( '/' );
   });
 };
 
 exports.destroy = function ( req, res, next ){
-  Todo.findById( req.params.id, function ( err, todo ){
-    var user_id = req.cookies ?
-      req.cookies.user_id : undefined;
-
-    if( todo.user_id !== req.cookies.user_id ){
-      return utils.forbidden( res );
-    }
-
-    todo.remove( function ( err, todo ){
-      if( err ) return next( err );
-
-      res.redirect( '/' );
-    });
+  var queryStr = 'DELETE FROM `To_Do_List` WHERE `id` = '+req.params.id;
+  db.query(queryStr, function(err) {
+    if(err) return next(err);
+    res.redirect( '/' );
   });
 };
 
