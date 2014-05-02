@@ -4,10 +4,13 @@ GET **/api/:user_id/list**
 NO params  
 return :  
 [{
-"id": 3,
-"content": "kill a dog.",
+"id": 7,
+"content": "aa",
 "done": 0,
-"user_id": 1
+"user_id": 2,
+"priority": "A",
+"tag": "other",
+"date": "2014-05-02T17:04:20.000Z"
 }]
 
 ---

@@ -5,7 +5,7 @@ exports.index = function ( req, res, next ){
   var user_id = req.cookies ?
     req.cookies.user_id : undefined;
 
-var queryStr = 'SELECT * FROM `To_Do_List` WHERE `user_id` = '+1;
+var queryStr = 'SELECT * FROM `To_Do_List` WHERE `user_id` = '+user_id;
 db.query(queryStr, function(err, rows) {
   if(err) return next(err);
   res.render( 'index', {
@@ -38,7 +38,7 @@ exports.login = function(req, res){
 exports.create = function ( req, res, next ){
   var content = req.body.content;
   var user_id = req.cookies.user_id;
-  var queryStr = 'INSERT INTO `To_Do_List` (`content`, `user_id`) VALUES("'+content+'",'+1+')';
+  var queryStr = 'INSERT INTO `To_Do_List` (`content`, `user_id`) VALUES("'+content+'",'+user_id+')';
   db.query(queryStr, function(err) {
     if(err) return next(err);
     res.redirect( '/' );

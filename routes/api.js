@@ -1,5 +1,6 @@
 var utils    = require( '../utils' );
 var db = require('../db').db;
+var format = require('util').format;
 
 exports.list = function ( req, res, next ){
   var user_id = req.params.user_id;
@@ -49,9 +50,11 @@ exports.login = function(req, res){
 };
 
 exports.create = function ( req, res, next ){
-  var content = req.body.content;
+  var content = req.body.content,
+      priority = req.body.priority,
+      tag = req.body.tag;
   var user_id = req.params.user_id;
-  var queryStr = 'INSERT INTO `To_Do_List` (`content`, `user_id`) VALUES("'+content+'",'+user_id+')';
+  var queryStr = format('INSERT INTO `To_Do_List` (`content`, `user_id`, `priority`, `tag`, `date`) VALUES("%s",%d,"%s", "%s", now())', content, user_id, tag);
   db.query(queryStr, function(err, todo) {
     if(err) return next(err, todo);
     res.json({'todo_id':todo.insertId});
