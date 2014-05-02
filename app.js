@@ -7,7 +7,7 @@ var http    = require( 'http' );
 var path    = require( 'path' );
 var app     = express();
 var engine  = require( 'ejs-locals' );
-
+var api		= require('./routes/api.js');
 // all environments
 app.set( 'port', process.env.PORT || 3001 );
 app.engine( 'ejs', engine );
@@ -20,7 +20,7 @@ app.use( express.bodyParser());
 app.use( express.json());
 app.use( express.urlencoded());
 app.use( express.methodOverride());
-app.use( routes.current_user );
+// app.use( routes.current_user );
 app.use( app.router );
 app.use( express.static( path.join( __dirname, 'public' )));
 
@@ -30,11 +30,21 @@ if( 'development' == app.get( 'env' )){
 }
 
 // Routes
-app.get(  '/',            routes.index );
-app.post( '/create',      routes.create );
-app.get(  '/destroy/:id', routes.destroy );
-app.get(  '/edit/:id',    routes.edit );
-app.post( '/update/:id',  routes.update );
+app.get(  '/',            routes.current_user,routes.index );
+app.post( '/create',      routes.current_user,routes.create );
+app.get(  '/destroy/:id', routes.current_user,routes.destroy );
+app.post( '/update/:id',  routes.current_user,routes.update );
+app.get('/login', function(req, res){
+	res.render('login');
+});
+app.post('/checkUser', routes.login);
+
+app.get ( '/api/:user_id/list', api.list);
+app.post( '/api/:user_id/create',api.create );
+app.delete ( '/api/destroy/:id', api.destroy );
+app.put( '/api/update/:id',  api.update );
+app.post( '/api/login', api.login);
+app.post( '/api/signup', api.signup);
 
 http.createServer( app ).listen( app.get( 'port' ), function (){
   console.log( 'Express server listening on port ' + app.get( 'port' ));

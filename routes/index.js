@@ -15,6 +15,26 @@ db.query(queryStr, function(err, rows) {
 });
 };
 
+exports.login = function(req, res){
+  console.log('login API IN');
+  var user_id = req.body.user_id,
+      password = req.body.password,
+      queryStr ='SELECT *'+
+                'FROM `User`'+
+                'WHERE `username` = "'+user_id+'"'+
+                'AND `password` = "' + password +'"';
+
+  db.query(queryStr, function(err, result){
+    if (result.length > 0) {
+      console.log(result);
+      res.cookie( 'user_id', result[0].id);
+      res.redirect('/');
+    }
+    else
+      res.render('login');
+  });
+};
+
 exports.create = function ( req, res, next ){
   var content = req.body.content;
   var user_id = req.cookies.user_id;
@@ -31,24 +51,6 @@ exports.destroy = function ( req, res, next ){
     if(err) return next(err);
     res.redirect( '/' );
   });
-};
-
-exports.edit = function( req, res, next ){
-  var user_id = req.cookies ?
-      req.cookies.user_id : undefined;
-
-  Todo.
-    find({ user_id : user_id }).
-    sort( '-updated_at' ).
-    exec( function ( err, todos ){
-      if( err ) return next( err );
-
-      res.render( 'edit', {
-        title   : 'Express Todo Example',
-        todos   : todos,
-        current : req.params.id
-      });
-    });
 };
 
 exports.update = function( req, res, next ){
@@ -72,12 +74,13 @@ exports.update = function( req, res, next ){
 
 // ** express turns the cookie key to lowercase **
 exports.current_user = function ( req, res, next ){
+  console.log(req.cookies);
   var user_id = req.cookies ?
       req.cookies.user_id : undefined;
-
   if( !user_id ){
-    res.cookie( 'user_id', utils.uid( 32 ));
+    // res.cookie( 'user_id', utils.uid( 32 ));
+    res.render('login');
   }
-
+else
   next();
 };
