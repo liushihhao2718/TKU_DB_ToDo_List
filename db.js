@@ -1,9 +1,9 @@
 var db_options = {
-    host: '127.0.0.1',
+    host: 'sql2.freesqldatabase.com',
     port: 3306,
-    user: 'root',
-    password: '',
-    database: 'DB_Project'
+    user: 'sql238638',
+    password: 'zX6%gY7!',
+    database: 'sql238638'
 };
 var mysql = require('mysql'), db = null;
 var connection = mysql.createConnection(db_options);
