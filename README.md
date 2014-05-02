@@ -28,11 +28,11 @@ return done  or  fail
 
 
 ---
-POST**/api/login**  
+POST **/api/login**  
 params  { username : string, password : string }    
 return { user_id } or fail  
 
 ---
-POST**/api/signup**  
+POST **/api/signup**  
 params  { username : string, password : string }    
 return { user_id } or fail 
