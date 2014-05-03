@@ -1,18 +1,37 @@
 var utils    = require( '../utils' );
 var db = require('../db').db;
+var async = require('node-async');
 
 exports.index = function ( req, res, next ){
   var user_id = req.cookies ?
     req.cookies.user_id : undefined;
 
-var queryStr = 'SELECT * FROM `To_Do_List` WHERE `user_id` = '+user_id;
-db.query(queryStr, function(err, rows) {
-  if(err) return next(err);
-  res.render( 'index', {
-          title : 'TKU To_Do_List',
-          todos : rows
-      });
-});
+  var queryStr = 'SELECT * FROM `To_Do_List` WHERE `user_id` = '+user_id,
+      tagQuery = 'SELECT `tag` FROM `User` WHERE `id` = '+user_id;
+
+  async([
+  {
+    name:'To_Do_List',
+    task:function(params, callback) {
+               db.query(queryStr, function(err, rows) {
+                  callback(null, rows);
+                });
+          }
+  },
+  {
+    name:'tag',
+    task:function(params, callback) {
+               db.query(tagQuery, function(err, rows) {
+                console.log(rows);
+                  callback(null, JSON.parse(rows[0].tag));
+                });
+          }
+
+  }
+  ], function(results){
+      res.render( 'index', { title : 'TKU To_Do_List',todos : results.To_Do_List.value, tag:results.tag.value});
+  });
+  
 };
 
 exports.login = function(req, res){

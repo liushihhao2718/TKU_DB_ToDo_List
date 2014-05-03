@@ -99,14 +99,14 @@ body {
 
 /* line 32, ../sass/screen.sass */
 #list {
-  width: 283px;
+  width: 300px;
   margin: 0 auto;
   padding: 20px 0 15px;
   position: relative;
 }
 
 /* line 38, ../sass/screen.sass */
-.item, .item-new {
+.item, .item-new, .tag {
   overflow: hidden;
   *zoom: 1;
   background-color: #f9f9f9;
@@ -116,8 +116,7 @@ body {
   margin: 6px 0 0;
   padding: 8px 9px 9px;
   position: relative;
-  text-shadow: 1px 1px 0 white;
-  width: 250px;
+  width: 278px;
 }
 /* line 49, ../sass/screen.sass */
 .item:hover, .item-new:hover {
@@ -126,9 +125,9 @@ body {
 }
 
 /* line 53, ../sass/screen.sass */
-.item-new {
+.item-new,.tag {
   padding: 4px 5px;
-  width: 258px;
+  width: 300px;
 }
 
 /* line 57, ../sass/screen.sass */
@@ -138,7 +137,7 @@ body {
   font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
   font-size: 15px;
   padding: 3px 4px;
-  width: 248px;
+  width: 288px;
   height: 19px;
 }
 
