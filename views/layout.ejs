@@ -13,13 +13,25 @@
     </div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="/javascripts/ga.js"></script>
-  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="/javascripts/jquery.ui.touch-punch.min.js"></script>
+
     <script type="text/javascript">
+
     $(function() {
     $( "ul" ).sortable({
-      connectWith: ".tag",
+      connectWith: ".connectedSortable",
       stop:function(event, ui){
-        alert(event + ui);
+        var id = ui.item[0].id;
+        var data = {
+                      content : ui.item[0]['outerText'],
+                      tag : ui.item[0]['parentElement']['id'],
+                     };
+        $.ajax({
+          type: 'PUT',
+          url: '/api/update/'+id,
+          data: data
+        });
       }
     }).disableSelection();
   });

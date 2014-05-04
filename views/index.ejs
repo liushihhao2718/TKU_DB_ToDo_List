@@ -9,8 +9,8 @@
     </div>
   </form>
 <% 	tag.forEach(function(t){ %>
-			    <a><%= t%></a>
-			    		<ul class="tag" id="<%=t %>">
+	    <a><%= t%></a>
+		<ul class="connectedSortable" id="<%=t %>">
 
 			   <%todos.forEach( function ( todo ){ 
 			   		if(todo.tag == t){
@@ -31,11 +31,13 @@
 				   				break;
 			   		}
 			   	%>
-			    <li><div class="item" style=  <%= color%>>
-				    <a class="update-link" style=<%= textColor%> href="/edit/<%= todo.id %>" title="Update this todo item"><%= todo.content %></a>
-				    <a class="del-btn" href="/destroy/<%= todo.id %>" title="Delete this todo item">Delete</a>
-			    </div></li>
-				<% }}); %>
+	    <li id="<%= todo.id %>">
+	    <div class="item" style=  <%= color%>>
+		    <a class="update-link" style=<%= textColor%> href="/edit/<%= todo.id %>" title="Update this todo item"><%= todo.content %></a>
+		    <a class="del-btn" href="/destroy/<%= todo.id %>" title="Delete this todo item"></a>
+	    </div>
+	    </li>
+		<% }}); %>
 	    </ul>
 <% });%>
 </div>

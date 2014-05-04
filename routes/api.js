@@ -77,8 +77,9 @@ exports.destroy = function ( req, res, next ){
 
 exports.update = function( req, res, next ){
   var content = req.body.content;
+  var tag = req.body.tag;
   var id = req.params.id;
-  var queryStr = 'UPDATE `To_Do_List` SET `content`="'+content+'" WHERE `id` ="'+id+'"';
+  var queryStr = format('UPDATE `To_Do_List` SET `content`="%s", `tag`="%s" WHERE `id` ="%d"',content, tag,id);
   db.query(queryStr, function(err){
     if (err) res.end('fail');
     res.end('done');
