@@ -45,7 +45,7 @@ app.delete ( '/api/destroy/:id', api.destroy );
 app.put( '/api/update/:id',  api.update );
 app.post( '/api/login', api.login);
 app.post( '/api/signup', api.signup);
-
+app.get('/api/:user_id/search/:key', api.search);
 http.createServer( app ).listen( app.get( 'port' ), function (){
   console.log( 'Express server listening on port ' + app.get( 'port' ));
 });

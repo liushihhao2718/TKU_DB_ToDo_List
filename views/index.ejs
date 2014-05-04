@@ -8,65 +8,34 @@
       <input class="input" type="text" name="content" />
     </div>
   </form>
-<%  var hasNUll = false; %>
 <% 	tag.forEach(function(t){ %>
-		<div class="tag">
 			    <a><%= t%></a>
+			    		<ul class="tag" id="<%=t %>">
 
 			   <%todos.forEach( function ( todo ){ 
 			   		if(todo.tag == t){
-			   			hasNUll = true;
-			   		var color = 'background-color:',
-			   			textColor = 'color:';
-			   		switch(todo.priority){
-			   			case 'A':
-			   				color += 'red';
-			   				textColor+= 'white';
-			   				break;
-			   			case 'B':
-			   				color += 'white';
-			   				break;
-			   			case 'C':
-			   				color += 'blue';
-			   				textColor+= 'white';
+				   		var color = 'background-color:',
+				   			textColor = 'color:';
+				   		switch(todo.priority){
+				   			case 'A':
+				   				color += 'red';
+				   				textColor+= 'white';
+				   				break;
+				   			case 'B':
+				   				color += 'white';
+				   				break;
+				   			case 'C':
+				   				color += 'blue';
+				   				textColor+= 'white';
 
-			   				break;
-
+				   				break;
 			   		}
 			   	%>
-			    <div class="item" style=  <%= color%>>
+			    <li><div class="item" style=  <%= color%>>
 				    <a class="update-link" style=<%= textColor%> href="/edit/<%= todo.id %>" title="Update this todo item"><%= todo.content %></a>
 				    <a class="del-btn" href="/destroy/<%= todo.id %>" title="Delete this todo item">Delete</a>
-			    </div>
+			    </div></li>
 				<% }}); %>
-	    </div>
-<% });
-	if(hasNUll){%>
-<div class="tag">
-<% todos.forEach( function ( todo ){ 
-			   		if(todo.tag == null){
-					   	var color = 'background-color:',
-			   			textColor = 'color:';
-			   		switch(todo.priority){
-			   			case 'A':
-			   				color += 'red';
-			   				textColor+= 'white';
-			   				break;
-			   			case 'B':
-			   				color += 'white';
-			   				break;
-			   			case 'C':
-			   				color += 'blue';
-			   				textColor+= 'white';
-
-			   				break;
-
-			   		}
-			   	%>
-			  <div class="item" style=  <%= color%>>
-				    <a class="update-link" style=<%= textColor%> href="/edit/<%= todo.id %>" title="Update this todo item"><%= todo.content %></a>
-				    <a class="del-btn" href="/destroy/<%= todo.id %>" title="Delete this todo item">Delete</a>
-			    </div>
-				<% }});} %>
-</div>
+	    </ul>
+<% });%>
 </div>

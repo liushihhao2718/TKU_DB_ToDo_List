@@ -41,11 +41,17 @@ exports.login = function(req, res){
                 'AND `password` = "' + password +'"';
   db.query(queryStr, function(err, result){
     if (result.length > 0) {
-      console.log(result);
       res.json( { 'user_id' : result[0].id });
     }
     else
       res.end('fail');
+  });
+};
+
+exports.search = function(req, res) {
+  var queryStr = 'SELECT *FROM `To_Do_List` WHERE(`content` LIKE "%'+req.params.key+'%" AND `user_id`='+req.params.user_id+')';
+  db.query(queryStr, function(err, rows){
+    res.json(rows);
   });
 };
 

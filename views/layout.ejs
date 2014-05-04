@@ -2,16 +2,27 @@
 <html>
   <head>
     <title><%= title %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
     <link rel='stylesheet' href='/stylesheets/screen.css' />
-    <!--[if lt IE 9]>
-    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
   </head>
   <body>
     <div id="layout">
       <%- body %>
       <div id="layout-footer"></div>
     </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="/javascripts/ga.js"></script>
+  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script type="text/javascript">
+    $(function() {
+    $( "ul" ).sortable({
+      connectWith: ".tag",
+      stop:function(event, ui){
+        alert(event + ui);
+      }
+    }).disableSelection();
+  });
+    </script>
   </body>
 </html>
