@@ -8,6 +8,7 @@
     "ejs"        : "0.8.5",
     "ejs-locals" : "1.0.2",
     "mysql"		 : "*",
-    "node-async":"*"
+    "node-async":"*",
+    "async":"*"
   }
 }
