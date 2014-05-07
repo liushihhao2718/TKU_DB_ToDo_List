@@ -29,7 +29,8 @@ exports.list = function ( req, res, next ){
 
   }
   ], function(results){
-      res.json( 'index', { title : 'TKU To_Do_List',todos : results.To_Do_List.value, tag:results.tag.value});
+    res.header("Content-Type", "application/json; charset=utf-8");
+    res.json({ title : 'TKU To_Do_List',todos : results.To_Do_List.value, tag:results.tag.value});
   });
   
 };
@@ -62,8 +63,11 @@ exports.login = function(req, res){
                 'FROM `User`'+
                 'WHERE `username` = "'+username+'"'+
                 'AND `password` = "' + password +'"';
+                console.log(queryStr);
   db.query(queryStr, function(err, result){
-    if (result.length > 0) {
+    console.log(err+JSON.stringify(result));
+    if (err) {console.log(err);}
+    else if (result.length > 0) {
       res.json( { 'user_id' : result[0].id });
     }
     else
@@ -85,7 +89,6 @@ exports.create = function ( req, res, next ){
       done = req.body.done;
   var user_id = req.params.user_id;
   var queryStr = format('INSERT INTO `To_Do_List` (`content`, `user_id`, `priority`, `tag`, `date`, `done`) VALUES("%s",%d,"%s", "%s", now(), "%s")', content, user_id, priority,newTag, done);
-  
   waterfall([function(callback){
      db.query('SELECT `tag` FROM `User` WHERE `id` = '+user_id, function(err, rows){
       var tags = JSON.parse(rows[0].tag);

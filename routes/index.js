@@ -58,6 +58,7 @@ exports.create = function ( req, res, next ){
   var content = req.body.content;
   var user_id = req.cookies.user_id;
   var queryStr = 'INSERT INTO `To_Do_List` (`content`, `user_id`) VALUES("'+content+'",'+user_id+')';
+  console.log(queryStr);
   db.query(queryStr, function(err) {
     if(err) return next(err);
     res.redirect( '/' );
