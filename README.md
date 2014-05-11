@@ -26,7 +26,7 @@ return done  or  fail
 
 ---
 PUT **/api/update/:id**
-params  { content : string }  
+params  { content : string , done: bool , tag : String }  
 return done  or  fail
 
 
