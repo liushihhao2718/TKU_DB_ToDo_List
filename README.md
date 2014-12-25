@@ -1,6 +1,4 @@
-Demo  http://crydbhw.cloudcontrolled.com/  
-username : haha  
-password : 123  
+
 ![](https://lh4.googleusercontent.com/-KNEXafKAgpo/U23oGmmvltI/AAAAAAAAAns/F2Cs_GBLwog/w394-h598-no/demo.png)
 
 
@@ -33,7 +31,7 @@ return done  or  fail
 
 ---
 PUT **/api/update/:id**
-params  { content : string }  
+params  { content : string , done: bool , tag : String }  
 return done  or  fail
 
 

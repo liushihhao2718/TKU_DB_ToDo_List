@@ -5,7 +5,8 @@ var db_options = {
     password: '',
     database: ''
 };
-var mysql = require('mysql'), db = null;
+var mysql = require('mysql'),
+    db = null;
 var connection = mysql.createConnection(db_options);
 connection.connect();
 exports.db = connection;
